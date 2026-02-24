@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  events    Event[]  @relation("EventCreator")
+  createdAt DateTime @default(now())
+}
+
+model Event {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String    @db.Text
+  date        DateTime
+  location    String
+  quota       Int
+  poster      String?
+  status      EventStatus @default(DRAFT)
+  creator     User      @relation("EventCreator", fields: [creatorId], references: [id])
+  creatorId   Int
+  participants Participant[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Participant {
+  id        Int      @id @default(autoincrement())
+  name      String
+  nim       String
+  email     String
+  phone     String
+  jurusan   String?
+  angkatan  String?
+  status    ParticipantStatus @default(REGISTERED)
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([eventId, email])
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum ParticipantStatus {
+  REGISTERED
+  ATTENDED
+  CANCELLED
+}

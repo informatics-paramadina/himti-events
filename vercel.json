@@ -1,0 +1,15 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
+  "env": {
+    "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "APP_URL": "@VERCEL_PROJECT_PRODUCTION_URL"
+  },
+  "framework": "laravel",
+  "functions": {
+    "api/**/*.php": {
+      "runtime": "php-8.1"
+    }
+  }
+}
