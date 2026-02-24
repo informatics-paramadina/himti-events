@@ -53,7 +53,7 @@ export default function ShowEvent({ auth, event, remainingQuota, canRegister }) 
     const status     = STATUS_CFG[event.status] || STATUS_CFG.DRAFT;
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '', nim: '', email: '', phone: '', jurusan: '', angkatan: '',
+        name: '', nim: '', email: '', phone: '', jurusan: '', angkatan: '', status: '',
     });
 
     const handleRegister = (e) => {
@@ -68,6 +68,7 @@ export default function ShowEvent({ auth, event, remainingQuota, canRegister }) 
         { key: 'phone',    label: 'WhatsApp',     placeholder: '081234567890',       type: 'tel',   required: true  },
         { key: 'jurusan',  label: 'Jurusan',      placeholder: 'Teknik Informatika', type: 'text',  required: false },
         { key: 'angkatan', label: 'Angkatan',     placeholder: '2021',               type: 'text',  required: false },
+        { key: 'status',   label: 'Status',       type: 'select', required: true, options: [{ value: '', label: 'Pilih Status' }, { value: 'mahasiswa', label: 'Mahasiswa' }, { value: 'dosen', label: 'Dosen' }, { value: 'panitia', label: 'Panitia' }] },
     ];
 
     /* render fn, not component  avoids input remount on typing */
@@ -140,15 +141,24 @@ export default function ShowEvent({ auth, event, remainingQuota, canRegister }) 
 
                 <form onSubmit={handleRegister} className="p-5">
                     <div className="space-y-3">
-                        {formFields.map(({ key, label, placeholder, type, required }) => (
+                        {formFields.map(({ key, label, placeholder, type, required, options }) => (
                             <div key={key}>
                                 <label className="block text-[11px] font-black text-slate-600 uppercase tracking-wider mb-1.5">
                                     {label}{required && <span className="text-red-500 ml-0.5">*</span>}
                                 </label>
-                                <input type={type} value={data[key]} onChange={e => setData(key, e.target.value)}
-                                    placeholder={placeholder} required={required}
-                                    className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold placeholder-slate-300 focus:outline-none transition-all b-border ${errors[key] ? 'bg-red-50 text-red-900' : 'bg-white text-slate-900'}`}
-                                    style={{ boxShadow: errors[key] ? '3px 3px 0 #f87171' : '3px 3px 0 #1a1a1a' }} />
+                                {type === 'select' ? (
+                                    <select value={data[key]} onChange={e => setData(key, e.target.value)}
+                                        required={required}
+                                        className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold focus:outline-none transition-all b-border ${errors[key] ? 'bg-red-50 text-red-900' : 'bg-white text-slate-900'}`}
+                                        style={{ boxShadow: errors[key] ? '3px 3px 0 #f87171' : '3px 3px 0 #1a1a1a' }}>
+                                        {options.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+                                    </select>
+                                ) : (
+                                    <input type={type} value={data[key]} onChange={e => setData(key, e.target.value)}
+                                        placeholder={placeholder} required={required}
+                                        className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold placeholder-slate-300 focus:outline-none transition-all b-border ${errors[key] ? 'bg-red-50 text-red-900' : 'bg-white text-slate-900'}`}
+                                        style={{ boxShadow: errors[key] ? '3px 3px 0 #f87171' : '3px 3px 0 #1a1a1a' }} />
+                                )}
                                 {errors[key] && <p className="text-[11px] text-red-500 mt-1 font-black">{errors[key]}</p>}
                             </div>
                         ))}

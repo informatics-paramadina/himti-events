@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
-import { useState, useEffect, useRef } from 'react';
-import { MapPinIcon, UsersIcon, MagnifyingGlassIcon, PlusIcon, FunnelIcon, BoltIcon, CalendarIcon, ChevronLeftIcon, ChevronRightIcon, ArrowRightIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import { useState, useEffect } from 'react';
+import { MapPinIcon, UsersIcon, MagnifyingGlassIcon, PlusIcon, FunnelIcon, BoltIcon, CalendarIcon, ChevronLeftIcon, ChevronRightIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 
 const CSS = `
     @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
@@ -97,22 +97,23 @@ function HeroCarousel({ events }) {
     const d    = new Date(item.date);
 
     return (
-        <div className="w-full max-w-sm"
+        <div className="w-[90%] sm:w-full max-w-[17rem] sm:max-w-sm mx-auto"
+            style={{ transform: 'translateX(-8px)' }}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}>
 
-            <div className="flex items-end justify-between mb-8">
-                <h3 className="font-fredoka text-[2rem] font-bold leading-none text-slate-900">
+            <div className="flex items-end justify-between mb-8 sm:mb-12">
+                <h3 className="font-fredoka text-[1.75rem] sm:text-[2rem] font-bold leading-none text-slate-900">
                     Mendatang<span style={{ color: '#5865F2' }}>.</span>
                 </h3>
                 {total > 1 && (
-                    <div className="flex gap-2.5">
+                    <div className="flex gap-2 sm:gap-3">
                         {[ChevronLeftIcon, ChevronRightIcon].map((Icon, i) => (
                             <button key={i}
                                 onClick={() => goTo(i === 0 ? cur - 1 : cur + 1)}
-                                className="flex items-center justify-center w-12 h-12 transition-colors duration-150 bg-white b-border rounded-2xl hover:bg-black hover:text-white"
+                                className="flex items-center justify-center w-10 h-10 transition-colors duration-150 bg-white sm:w-12 sm:h-12 b-border rounded-xl sm:rounded-2xl hover:bg-black hover:text-white"
                                 style={{ boxShadow: '4px 4px 0 #000' }}>
-                                <Icon className="w-5 h-5" strokeWidth={2.5} />
+                                <Icon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />
                             </button>
                         ))}
                     </div>
@@ -120,13 +121,13 @@ function HeroCarousel({ events }) {
             </div>
 
             <div className="relative card-3d-scene hero-card-wrap">
-                <div className="card-layer-yellow absolute inset-0 bg-yellow-400 b-border rounded-[2.5rem]"
-                    style={{ transform: 'translateX(24px) translateY(24px) rotate(3deg)' }} />
-                <div className="absolute inset-0 bg-black b-border rounded-[2.5rem]"
-                    style={{ transform: 'translateX(12px) translateY(12px)' }} />
+                <div className="card-layer-yellow absolute inset-0 bg-yellow-400 b-border rounded-[2rem] sm:rounded-[2.5rem]"
+                    style={{ transform: 'translateX(16px) translateY(16px) rotate(3deg)' }} />
+                <div className="absolute inset-0 bg-black b-border rounded-[2rem] sm:rounded-[2.5rem]"
+                    style={{ transform: 'translateX(8px) translateY(8px)' }} />
 
-                <div key={flipKey} className="flip-in relative bg-white b-border rounded-[2.5rem] overflow-hidden">
-                    <div className="relative overflow-hidden h-60" style={{ borderBottom: '4px solid #000' }}>
+                <div key={flipKey} className="flip-in relative bg-white b-border rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden">
+                    <div className="relative h-48 overflow-hidden sm:h-60" style={{ borderBottom: '4px solid #000' }}>
                         {item.poster
                             ? <img src={`/storage/${item.poster}`} alt={item.title}
                                 className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110" />
@@ -138,34 +139,33 @@ function HeroCarousel({ events }) {
                               </div>
                         }
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                        <div className="absolute top-5 left-5">
+                        <div className="absolute top-4 left-4 sm:top-5 sm:left-5">
                             <span className="bg-black text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest">
                                 Featured
                             </span>
                         </div>
                     </div>
 
-                    <div className="p-7">
-                        <div className="flex items-start justify-between gap-3 mb-4">
-                            <h4 className="font-fredoka text-[1.6rem] font-bold leading-snug text-slate-900 flex-1 line-clamp-2">
+                    <div className="p-6 sm:p-8">
+                        <div className="flex items-start justify-between gap-3 mb-4 sm:mb-5">
+                            <h4 className="font-fredoka text-[1.4rem] sm:text-[1.6rem] font-bold leading-snug text-slate-900 flex-1 line-clamp-2">
                                 {item.title}
                             </h4>
-                            <span className="text-3xl flex-shrink-0 mt-0.5"></span>
                         </div>
 
-                        <div className="space-y-2 mb-7">
-                            <p className="flex items-center gap-2.5 text-sm font-bold text-slate-500">
+                        <div className="mb-6 space-y-2 sm:mb-8 sm:space-y-3">
+                            <p className="flex items-center gap-2.5 text-xs sm:text-sm font-bold text-slate-500">
                                 <MapPinIcon className="flex-shrink-0 w-4 h-4" strokeWidth={2.5} />
                                 <span className="truncate">{item.location}</span>
                             </p>
-                            <p className="flex items-center gap-2.5 text-sm font-bold text-slate-500">
+                            <p className="flex items-center gap-2.5 text-xs sm:text-sm font-bold text-slate-500">
                                 <CalendarIcon className="flex-shrink-0 w-4 h-4" strokeWidth={2.5} />
                                 {d.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}
                             </p>
                         </div>
 
                         <Link href={`/events/${item.id}`}
-                            className="b-btn block w-full text-center text-white py-4 rounded-[1.5rem] b-border font-black text-sm uppercase tracking-[0.15em]"
+                            className="b-btn block w-full text-center text-white py-3 sm:py-4 rounded-xl sm:rounded-[1.5rem] b-border font-black text-xs sm:text-sm uppercase tracking-[0.15em]"
                             style={{ background: '#5865F2', boxShadow: '4px 4px 0 #000' }}>
                             AMBIL TIKET SEKARANG
                         </Link>
@@ -174,7 +174,7 @@ function HeroCarousel({ events }) {
             </div>
 
             {total > 1 && (
-                <div className="flex items-center gap-4 mt-10">
+                <div className="flex items-center gap-4 mt-8 sm:mt-12">
                     <span className="w-6 text-sm font-black text-center text-slate-500 tabular-nums">
                         {String(cur + 1).padStart(2, '0')}
                     </span>
@@ -208,7 +208,7 @@ function EventCard({ event, idx, showAdminActions = false }) {
         <div className="c-up event-card group bg-white rounded-[2rem] b-border b-shadow-md flex flex-col overflow-hidden"
             style={{ animationDelay: `${idx * 60}ms`, animationFillMode: 'both' }}>
 
-            <div className="relative flex-shrink-0 overflow-hidden h-52">
+            <div className="relative flex-shrink-0 h-56 overflow-hidden sm:h-64">
                 {event.poster
                     ? <img src={`/storage/${event.poster}`} alt={event.title}
                         className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110" />
@@ -235,7 +235,7 @@ function EventCard({ event, idx, showAdminActions = false }) {
                     </div>
                 </div>
 
-                <div className="absolute bottom-3.5 left-3.5">
+                <div className="absolute bottom-3.5 left-3.5 right-3.5">
                     <span className="inline-flex items-center gap-1.5 bg-white/95 b-border-2 px-3 py-1.5 rounded-full text-[10px] font-black text-slate-700 max-w-[200px]"
                         style={{ boxShadow: '2px 2px 0 #000' }}>
                         <MapPinIcon className="flex-shrink-0 w-3 h-3" strokeWidth={3} />
@@ -244,13 +244,13 @@ function EventCard({ event, idx, showAdminActions = false }) {
                 </div>
             </div>
 
-            <div className="flex flex-col flex-1 gap-3 p-5">
-                <h3 className="font-fredoka text-[1.45rem] font-bold leading-snug text-slate-900 line-clamp-2 group-hover:text-indigo-600 transition-colors">
+            <div className="flex flex-col flex-1 gap-4 p-5 sm:gap-5 sm:p-7">
+                <h3 className="font-fredoka text-[1.4rem] sm:text-[1.6rem] font-bold leading-snug text-slate-900 line-clamp-2 group-hover:text-indigo-600 transition-colors">
                     {event.title}
                 </h3>
 
-                <div className="space-y-2">
-                    <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-wide">
+                <div className="space-y-3 sm:space-y-4">
+                    <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-black uppercase tracking-wide">
                         <span className="flex items-center gap-1.5 text-slate-500">
                             <UsersIcon className="w-3.5 h-3.5" strokeWidth={3} />
                             {filled} / {event.quota} peserta
@@ -269,16 +269,16 @@ function EventCard({ event, idx, showAdminActions = false }) {
                     </div>
                 </div>
 
-                <div className="flex gap-2 pt-1 mt-auto">
+                <div className="flex gap-2 pt-2 mt-auto sm:gap-3 sm:pt-3">
                     <Link href={`/events/${event.id}`}
-                        className="b-btn b-border flex-1 py-3.5 rounded-2xl text-xs font-black text-white text-center uppercase tracking-widest flex items-center justify-center gap-1.5"
+                        className="b-btn b-border flex-1 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black text-white text-center uppercase tracking-widest flex items-center justify-center gap-1.5"
                         style={{ background: acc.btn, boxShadow: '4px 4px 0 #000' }}>
                         Lihat Detail
-                        <ArrowRightIcon className="w-3.5 h-3.5" strokeWidth={3} />
+                        <ArrowRightIcon className="w-3.5 h-3.5 hidden sm:block" strokeWidth={3} />
                     </Link>
                     {showAdminActions && (
                         <Link href={`/events/${event.id}/edit`}
-                            className="b-btn b-border px-4 py-3.5 rounded-2xl text-xs font-black bg-white text-slate-700 uppercase tracking-wider"
+                            className="b-btn b-border px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-black bg-white text-slate-700 uppercase tracking-wider"
                             style={{ boxShadow: '4px 4px 0 #000' }}>
                             Edit
                         </Link>
@@ -293,11 +293,11 @@ function Ticker({ events }) {
     const items = [...events, ...events];
     if (events.length === 0) return null;
     return (
-        <div className="py-4 overflow-hidden ticker-wrap"
+        <div className="py-3 overflow-hidden sm:py-4 ticker-wrap"
             style={{ background: '#FACC15', borderTop: '4px solid #000', borderBottom: '4px solid #000' }}>
             <div className="ticker-inner">
                 {items.map((e, i) => (
-                    <span key={i} className="inline-flex items-center gap-3 px-6 text-sm font-black tracking-wider text-black uppercase">
+                    <span key={i} className="inline-flex items-center gap-3 px-4 text-xs font-black tracking-wider text-black uppercase sm:px-6 sm:text-sm">
                         <span></span>
                         <span>{e.title}</span>
                         <span className="mx-2 opacity-40">|</span>
@@ -342,199 +342,187 @@ export default function EventsIndex({ auth, events, filters }) {
                 <div className="fixed inset-0 bg-dots" />
 
                 <header className="sticky top-0 z-50 px-4 pt-4 pb-3 sm:px-6">
-                    <nav className="flex items-center justify-between px-5 mx-auto bg-white max-w-7xl b-border rounded-2xl sm:px-7"
-                        style={{ height: '68px', boxShadow: '6px 6px 0 #000' }}>
+                    <nav className="flex items-center justify-between px-4 mx-auto bg-white sm:px-5 max-w-7xl b-border rounded-2xl sm:px-7"
+                        style={{ height: '60px', boxShadow: '6px 6px 0 #000' }}>
                         <Link href="/events" className="flex items-center gap-2.5">
-                            <div className="flex items-center justify-center w-10 h-10 bg-yellow-400 b-border rounded-xl b-btn"
+                            <div className="flex items-center justify-center w-8 h-8 bg-yellow-400 sm:w-10 sm:h-10 b-border rounded-xl b-btn"
                                 style={{ boxShadow: '3px 3px 0 #000' }}>
-                                <BoltIcon className="w-5 h-5 text-black" strokeWidth={3} />
+                                <BoltIcon className="w-4 h-4 text-black sm:w-5 sm:h-5" strokeWidth={3} />
                             </div>
-                            <span className="font-fredoka text-[1.5rem] font-bold tracking-tight">EventHub.</span>
+                            <span className="font-fredoka text-[1.25rem] sm:text-[1.5rem] font-bold tracking-tight">EventHub.</span>
                         </Link>
-                        <div className="flex items-center gap-2">
-                            <Link href="/login"
-                                className="hidden sm:block px-5 py-2 text-[13px] font-black uppercase tracking-wider hover:text-indigo-600 transition-colors">
-                                Sign In
-                            </Link>
-                            <Link href="/register"
-                                className="b-btn b-border text-white px-5 py-2.5 rounded-xl text-[13px] font-black uppercase tracking-wider"
-                                style={{ background: '#5865F2', boxShadow: '4px 4px 0 #000' }}>
-                                Daftar
-                            </Link>
-                        </div>
                     </nav>
                 </header>
 
-                <main className="relative z-10 px-4 pb-12 mx-auto sm:px-6 max-w-7xl">
+                <main className="relative z-10 px-4 pb-12 mx-auto sm:px-6 max-w-7xl sm:pb-16">
 
-                    <div className="c-heroIn mt-8 bg-white b-border b-shadow rounded-[3.5rem] overflow-hidden relative">
+                    <div className="c-heroIn mt-8 sm:mt-12 bg-white b-border b-shadow rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden relative">
                         <div className="absolute top-0 right-0 p-10 opacity-[0.04] select-none pointer-events-none overflow-hidden"
                             style={{ right: '-2rem', top: '-1rem' }}>
-                            <p className="font-bold leading-none text-black font-fredoka"
-                                style={{ fontSize: '20rem' }}>EVENT</p>
+                            <p className="font-bold leading-none text-black font-fredoka text-[10rem] md:text-[20rem]">EVENT</p>
                         </div>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ minHeight: '680px' }}>
-                            <div className="relative flex flex-col justify-center p-8 text-white lg:col-span-7 md:p-14"
-                                style={{ background: '#5865F2', borderRight: '4px solid #000' }}>
+                        <div className="grid grid-cols-1 gap-0 lg:grid-cols-12" style={{ minHeight: 'auto' }}>
+                        <div className="relative flex flex-col justify-center p-6 text-white border-b-4 border-black sm:p-8 lg:p-10 lg:col-span-7 lg:border-b-0 lg:border-r-4"
+                            style={{ background: '#5865F2' }}>
 
-                                <div className="absolute flex items-center justify-center text-4xl bg-yellow-400 c-float top-10 left-10 w-18 h-18 b-border rounded-2xl"
-                                    style={{ width: '72px', height: '72px', boxShadow: '6px 6px 0 #000' }}></div>
-                                <div className="absolute flex items-center justify-center text-3xl bg-pink-400 rounded-full c-floatB bottom-16 right-16 b-border"
-                                    style={{ width: '60px', height: '60px', boxShadow: '6px 6px 0 #000', animationDelay: '2s' }}></div>
+                            <div className="absolute hidden bg-yellow-400 c-float top-12 right-12 lg:right-24 w-18 h-18 b-border rounded-2xl sm:flex"
+                                style={{ width: '72px', height: '72px', boxShadow: '6px 6px 0 #000' }}></div>
+                            <div className="absolute hidden bg-pink-400 rounded-full c-floatB bottom-16 right-12 lg:right-16 b-border sm:flex"
+                                style={{ width: '60px', height: '60px', boxShadow: '6px 6px 0 #000', animationDelay: '2s' }}></div>
 
-                                <div className="relative z-10 max-w-xl space-y-7">
-                                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[11px] font-black tracking-[0.2em] uppercase"
+                            <div className="relative z-10 flex flex-col items-center w-full max-w-2xl mx-auto space-y-6 text-center lg:mx-0 lg:max-w-xl lg:items-start lg:text-left">
+                                
+                                <div className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-black tracking-[0.2em] uppercase"
+                                    style={{
+                                        background: 'rgba(255,255,255,0.18)',
+                                        backdropFilter: 'blur(10px)',
+                                        border: '2px solid rgba(255,255,255,0.3)',
+                                    }}>
+                                    KAMPUS LIFE IS FUN!
+                                </div>
+
+                                <div className="flex flex-col w-full gap-1">
+                                    <h1 className="font-fredoka font-bold text-white leading-[1.1]"
                                         style={{
-                                            background: 'rgba(255,255,255,0.18)',
-                                            backdropFilter: 'blur(10px)',
-                                            border: '2px solid rgba(255,255,255,0.3)',
+                                            fontSize: 'clamp(2.5rem, 9vw, 4.5rem)',
+                                            textShadow: '4px 4px 0 #000',
+                                            WebkitTextStroke: '1px #000',
                                         }}>
-                                         KAMPUS LIFE IS FUN!
-                                    </div>
-
-                                    <div className="-space-y-2">
-                                        <h1 className="font-fredoka font-bold text-white leading-[0.9]"
-                                            style={{
-                                                fontSize: 'clamp(3.2rem, 6.5vw, 5.5rem)',
-                                                textShadow: '5px 5px 0 rgba(0,0,0,0.25)',
-                                            }}>
-                                            Upgrade Skill
-                                        </h1>
-                                        <h1 className="font-fredoka font-bold text-yellow-400 leading-[0.9] underline decoration-4"
-                                            style={{
-                                                fontSize: 'clamp(3.2rem, 6.5vw, 5.5rem)',
-                                                textShadow: '5px 5px 0 #1a1a1a',
-                                                WebkitTextStroke: '1.2px #1a1a1a',
-                                                textDecorationColor: '#1a1a1a',
-                                                textUnderlineOffset: '10px',
-                                            }}>
-                                            Di Event Kampus.
-                                        </h1>
-                                    </div>
-
-                                    <p className="max-w-md text-base font-bold leading-relaxed text-white/90">
-                                        Workshop, hackathon, dan seminar terbaik daftar langsung,{' '}
-                                        <span className="font-black text-yellow-300">gratis, tanpa login.</span>
-                                    </p>
-
-                                    <a href="#events"
-                                        className="group inline-flex items-center gap-2.5 bg-white text-black font-black text-sm uppercase b-border"
+                                        Upgrade Skill
+                                    </h1>
+                                    <h1 className="font-fredoka font-bold text-yellow-400 leading-[1.1]"
                                         style={{
-                                            padding: '14px 28px',
-                                            borderRadius: '2rem',
-                                            boxShadow: '5px 5px 0 rgba(0,0,0,0.3)',
-                                            transition: 'all 0.12s ease',
-                                            width: 'fit-content',
-                                        }}
-                                        onMouseEnter={e => { e.currentTarget.style.transform='translate(2px,2px)'; e.currentTarget.style.boxShadow='0px 0px 0 rgba(0,0,0,0.3)'; }}
-                                        onMouseLeave={e => { e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='5px 5px 0 rgba(0,0,0,0.3)'; }}>
-                                        EXPLORE EVENTS
-                                        <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
-                                    </a>
+                                            fontSize: 'clamp(2.5rem, 9vw, 4.5rem)',
+                                            textShadow: '4px 4px 0 #000',
+                                            WebkitTextStroke: '2px #000',
+                                        }}>
+                                        Di Event Kampus.
+                                    </h1>
+                                </div>
 
-                                    <div className="flex items-center gap-4 pt-2">
-                                        <div className="flex -space-x-2">
-                                            {['#fecaca', '#bfdbfe', '#bbf7d0'].map((bg, i) => (
-                                                <div key={i} className="bg-white rounded-full w-9 h-9 b-border-2"
-                                                    style={{ background: bg, boxShadow: '2px 2px 0 rgba(0,0,0,0.2)' }} />
-                                            ))}
-                                        </div>
-                                        <span className="text-sm font-black text-white">+2k teman bergabung!</span>
+                                <p className="w-full max-w-md text-xs font-bold leading-relaxed sm:text-sm md:text-base text-white/90">
+                                    Workshop, hackathon, dan seminar terbaik daftar langsung,{' '}
+                                    <span className="font-black text-yellow-300">gratis, tanpa login.</span>
+                                </p>
+
+                                <a href="#events"
+                                    className="group inline-flex items-center gap-2.5 bg-white text-black font-black text-xs sm:text-sm uppercase b-border mt-2"
+                                    style={{
+                                        padding: '12px 24px',
+                                        borderRadius: '2rem',
+                                        boxShadow: '4px 4px 0 #000',
+                                        transition: 'all 0.12s ease',
+                                        width: 'fit-content',
+                                    }}
+                                    onMouseEnter={e => { e.currentTarget.style.transform='translate(2px,2px)'; e.currentTarget.style.boxShadow='0px 0px 0 #000'; }}
+                                    onMouseLeave={e => { e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='4px 4px 0 #000'; }}>
+                                    EXPLORE EVENTS
+                                    <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
+                                </a>
+
+                                <div className="flex flex-col items-center w-full gap-3 pt-2 sm:flex-row sm:gap-4 lg:justify-start">
+                                    <div className="flex order-2 -space-x-2 sm:order-1">
+                                        {['#fecaca', '#bfdbfe', '#bbf7d0'].map((bg, i) => (
+                                            <div key={i} className="w-8 h-8 bg-white rounded-full sm:w-9 sm:h-9 b-border-2"
+                                                style={{ background: bg, boxShadow: '2px 2px 0 rgba(0,0,0,0.2)' }} />
+                                        ))}
                                     </div>
+                                    <span className="order-1 text-xs font-black text-white sm:text-sm sm:order-2">+2k teman bergabung!</span>
+                                </div>
 
-                                    <div className="flex flex-wrap items-center gap-3 pt-1">
-                                        <div className="bg-white/20 backdrop-blur-sm b-border-2 px-4 py-2.5 rounded-2xl text-center">
-                                            <p className="font-bold text-white font-fredoka tabular-nums"
-                                                style={{ fontSize: '1.8rem', lineHeight: 1 }}>
-                                                {String((events||[]).length).padStart(2,'0')}
-                                            </p>
-                                            <p className="text-[9px] font-black uppercase tracking-tight text-white/70 mt-0.5">Total Events</p>
-                                        </div>
-                                        <div className="bg-white/20 backdrop-blur-sm b-border-2 px-4 py-2.5 rounded-2xl text-center">
-                                            <p className="font-bold text-white font-fredoka tabular-nums"
-                                                style={{ fontSize: '1.8rem', lineHeight: 1 }}>
-                                                {String(publishedCount).padStart(2,'0')}
-                                            </p>
-                                            <p className="text-[9px] font-black uppercase tracking-tight text-white/70 mt-0.5">Open Now</p>
-                                        </div>
-                                        <div className="bg-white/20 backdrop-blur-sm b-border-2 px-4 py-2.5 rounded-2xl text-center">
-                                            <p className="font-bold text-white font-fredoka"
-                                                style={{ fontSize: '1.8rem', lineHeight: 1 }}>
-                                                100%
-                                            </p>
-                                            <p className="text-[9px] font-black uppercase tracking-tight text-white/70 mt-0.5">Gratis</p>
-                                        </div>
+                                <div className="flex flex-wrap items-center justify-center w-full gap-2 pt-2 sm:gap-3 sm:pt-3 lg:justify-start">
+                                    <div className="bg-white/20 backdrop-blur-sm b-border-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl text-center flex-1 min-w-[90px] max-w-[120px] lg:max-w-none">
+                                        <p className="font-bold text-white font-fredoka tabular-nums text-xl sm:text-[1.8rem]"
+                                            style={{ lineHeight: 1 }}>
+                                            {String((events||[]).length).padStart(2,'0')}
+                                        </p>
+                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-tight text-white/70 mt-1">Total Events</p>
+                                    </div>
+                                    <div className="bg-white/20 backdrop-blur-sm b-border-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl text-center flex-1 min-w-[90px] max-w-[120px] lg:max-w-none">
+                                        <p className="font-bold text-white font-fredoka tabular-nums text-xl sm:text-[1.8rem]"
+                                            style={{ lineHeight: 1 }}>
+                                            {String(publishedCount).padStart(2,'0')}
+                                        </p>
+                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-tight text-white/70 mt-1">Open Now</p>
+                                    </div>
+                                    <div className="bg-white/20 backdrop-blur-sm b-border-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl text-center flex-1 min-w-[90px] max-w-[120px] lg:max-w-none">
+                                        <p className="font-bold text-white font-fredoka text-xl sm:text-[1.8rem]"
+                                            style={{ lineHeight: 1 }}>
+                                            100%
+                                        </p>
+                                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-tight text-white/70 mt-1">Gratis</p>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div className="flex flex-col items-center justify-center p-8 lg:col-span-5 bg-slate-50 md:p-12">
+                            <div className="flex flex-col items-center justify-center p-6 pb-10 sm:p-8 sm:pb-12 lg:p-10 lg:col-span-5 bg-slate-50 md:p-14">
                                 <HeroCarousel events={events || []} />
                             </div>
                         </div>
                     </div>
 
-                    <div className="mt-6 mb-16">
+                    <div className="mt-8 mb-16 sm:mt-10 sm:mb-20">
                         <Ticker events={(events||[]).filter(e => e.status === 'PUBLISHED')} />
                     </div>
 
-                    <div id="events" className="flex flex-col justify-between gap-5 mb-10 md:flex-row md:items-end">
-                        <div>
-                            <div className="flex items-center gap-3 mb-2">
-                                <span className="text-4xl font-bold font-fredoka text-slate-900">All Events</span>
-                                <span className="px-3 py-1 text-sm font-black text-white b-border-2 rounded-xl"
+                    <div id="events" className="flex flex-col justify-between gap-5 mb-8 md:flex-row md:items-end md:mb-12">
+                        <div className="text-center md:text-left">
+                            <div className="flex items-center justify-center gap-3 mb-2 md:justify-start sm:mb-3">
+                                <span className="text-3xl font-bold sm:text-4xl font-fredoka text-slate-900">All Events</span>
+                                <span className="px-3 py-1 text-xs font-black text-white sm:text-sm b-border-2 rounded-xl"
                                     style={{ background: '#5865F2', boxShadow: '3px 3px 0 #000' }}>
                                     {filteredEvents.length}
                                 </span>
                             </div>
-                            <p className="text-sm font-bold text-slate-400">
-                                {publishedCount} event sedang open  semua gratis!
+                            <p className="text-xs font-bold sm:text-sm text-slate-400">
+                                {publishedCount} event sedang open semua gratis!
                             </p>
                         </div>
                         <div className="relative">
                             <MagnifyingGlassIcon className="absolute w-5 h-5 -translate-y-1/2 left-4 top-1/2 text-slate-400" strokeWidth={2.5} />
                             <input type="text" value={search} onChange={e => setSearch(e.target.value)}
                                 placeholder="Cari event atau lokasi..."
-                                className="w-full md:w-72 pl-11 pr-5 py-3.5 bg-white b-border rounded-2xl text-sm font-bold text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                className="w-full md:w-72 pl-11 pr-5 py-3 sm:py-3.5 bg-white b-border rounded-xl sm:rounded-2xl text-sm font-bold text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 style={{ boxShadow: '4px 4px 0 #000' }} />
                         </div>
                     </div>
 
                     {filteredEvents.length > 0
-                        ? <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
+                        ? <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 sm:gap-14">
                               {filteredEvents.map((event, idx) => (
                                   <EventCard key={event.id} event={event} idx={idx} />
                               ))}
                           </div>
-                        : <div className="flex flex-col items-center justify-center text-center py-28">
-                              <div className="flex items-center justify-center w-20 h-20 mb-5 text-4xl bg-white rounded-3xl b-border"
+                        : <div className="flex flex-col items-center justify-center py-16 text-center sm:py-28">
+                              <div className="flex items-center justify-center w-16 h-16 mb-4 text-4xl bg-white sm:w-20 sm:h-20 sm:mb-5 rounded-2xl sm:rounded-3xl b-border"
                                   style={{ boxShadow: '6px 6px 0 #000' }}></div>
-                              <h3 className="mb-1 text-2xl font-bold font-fredoka text-slate-800">
+                              <h3 className="mb-1 text-xl font-bold sm:text-2xl font-fredoka text-slate-800">
                                   {search ? 'Nggak Ketemu...' : 'Belum Ada Event'}
                               </h3>
-                              <p className="text-sm font-bold text-slate-400">
+                              <p className="text-xs font-bold sm:text-sm text-slate-400">
                                   {search ? 'Coba kata kunci lain ya!' : 'Event baru segera hadir, tunggu aja!'}
                               </p>
                           </div>}
                 </main>
 
-                <footer className="mt-16 bg-white py-14" style={{ borderTop: '4px solid #000' }}>
-                    <div className="flex flex-col items-center gap-5 px-6 mx-auto text-center max-w-7xl">
+                <footer className="py-10 mt-12 bg-white sm:mt-16 sm:py-14" style={{ borderTop: '4px solid #000' }}>
+                    <div className="flex flex-col items-center gap-4 px-6 mx-auto text-center sm:gap-5 max-w-7xl">
                         <div className="flex items-center gap-2.5">
-                            <div className="flex items-center justify-center w-10 h-10 bg-yellow-400 b-border rounded-xl"
+                            <div className="flex items-center justify-center w-8 h-8 bg-yellow-400 sm:w-10 sm:h-10 b-border rounded-xl"
                                 style={{ boxShadow: '3px 3px 0 #000' }}>
-                                <BoltIcon className="w-5 h-5 text-black" strokeWidth={3} />
+                                <BoltIcon className="w-4 h-4 text-black sm:w-5 sm:h-5" strokeWidth={3} />
                             </div>
-                            <span className="text-2xl font-bold tracking-tight font-fredoka">EventHub.</span>
+                            <span className="text-xl font-bold tracking-tight sm:text-2xl font-fredoka">EventHub.</span>
                         </div>
-                        <p className="max-w-xs text-sm font-bold text-slate-400">
-                            Platform event kampus terbaik  gratis, fun, dan accessible!
+                        <p className="max-w-xs text-xs font-bold sm:text-sm text-slate-400">
+                            Platform event kampus terbaik gratis, fun, dan accessible!
                         </p>
-                        <div className="flex flex-wrap justify-center gap-3">
+                        <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                             {['Workshop', 'Seminar', 'Hackathon', 'Kompetisi'].map(tag => (
                                 <span key={tag}
-                                    className="b-border-2 px-3 py-1.5 rounded-xl text-xs font-black text-slate-600 bg-slate-50"
+                                    className="b-border-2 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black text-slate-600 bg-slate-50"
                                     style={{ boxShadow: '2px 2px 0 #000' }}>
                                     {tag}
                                 </span>
@@ -543,13 +531,13 @@ export default function EventsIndex({ auth, events, filters }) {
                         <div className="flex items-center gap-4 mt-2">
                             {['IG', 'TW'].map((s) => (
                                 <div key={s}
-                                    className="flex items-center justify-center text-xs font-black transition-colors bg-white rounded-full cursor-pointer w-9 h-9 b-border-2 hover:bg-yellow-400"
+                                    className="flex items-center justify-center w-8 h-8 text-xs font-black transition-colors bg-white rounded-full cursor-pointer sm:w-9 sm:h-9 b-border-2 hover:bg-yellow-400"
                                     style={{ boxShadow: '2px 2px 0 #000' }}>
                                     {s}
                                 </div>
                             ))}
                         </div>
-                        <p className="text-[11px] font-black uppercase tracking-widest text-slate-300 border-t-2 border-slate-100 pt-5 w-full">
+                        <p className="text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-300 border-t-2 border-slate-100 pt-5 w-full mt-2 sm:mt-0">
                              2026 EventHub Creative Labs  Made with  for students
                         </p>
                     </div>
@@ -562,14 +550,14 @@ export default function EventsIndex({ auth, events, filters }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+                <div className="flex flex-col justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-left">
                     <div>
-                        <h2 className="text-3xl font-bold font-fredoka text-slate-900">Kelola Event</h2>
-                        <p className="text-sm font-bold text-slate-400 mt-0.5">{(events||[]).length} event terdaftar</p>
+                        <h2 className="text-2xl font-bold sm:text-3xl font-fredoka text-slate-900">Kelola Event</h2>
+                        <p className="mt-1 text-xs font-bold sm:text-sm text-slate-400">{(events||[]).length} event terdaftar</p>
                     </div>
                     {isAdmin && (
                         <Link href="/events/create"
-                            className="b-btn b-border inline-flex items-center gap-2 text-white px-5 py-2.5 rounded-2xl font-black text-sm uppercase tracking-widest"
+                            className="b-btn b-border inline-flex items-center justify-center gap-2 text-white px-5 py-2.5 rounded-2xl font-black text-sm uppercase tracking-widest w-full sm:w-auto mt-2 sm:mt-0"
                             style={{ background: '#5865F2', boxShadow: '4px 4px 0 #000' }}>
                             <PlusIcon className="w-4 h-4" strokeWidth={3} /> Buat Event
                         </Link>
@@ -578,8 +566,8 @@ export default function EventsIndex({ auth, events, filters }) {
             }>
             <Head title="Events" />
             <style>{CSS}</style>
-            <div className="py-6 sm:py-8" style={{ background: '#FFFDF0' }}>
-                <div className="px-4 mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
+            <div className="py-8 sm:py-16" style={{ background: '#FFFDF0' }}>
+                <div className="px-4 mx-auto space-y-6 sm:space-y-10 max-w-7xl sm:px-6 lg:px-8">
                     <div className="flex flex-col gap-3 p-4 bg-white b-border rounded-2xl sm:flex-row"
                         style={{ boxShadow: '5px 5px 0 #000' }}>
                         <div className="relative flex-1">
@@ -589,11 +577,11 @@ export default function EventsIndex({ auth, events, filters }) {
                                 className="w-full pl-10 pr-4 py-2.5 b-border rounded-xl text-sm font-bold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-slate-50" />
                         </div>
                         {isAdmin && (
-                            <div className="flex flex-wrap items-center gap-2">
-                                <FunnelIcon className="flex-shrink-0 w-4 h-4 text-slate-400" strokeWidth={2.5} />
+                            <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+                                <FunnelIcon className="flex-shrink-0 hidden w-4 h-4 sm:block text-slate-400" strokeWidth={2.5} />
                                 {filterButtons.map(({ key, label }) => (
                                     <button key={key} onClick={() => handleFilterChange(key)}
-                                        className={`b-btn b-border-2 px-3 py-1.5 rounded-xl text-[11px] font-black uppercase tracking-wider ${statusFilter === key ? 'text-white' : 'bg-white text-slate-600'}`}
+                                        className={`b-btn b-border-2 flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-[10px] sm:text-[11px] font-black uppercase tracking-wider ${statusFilter === key ? 'text-white' : 'bg-white text-slate-600'}`}
                                         style={{
                                             background: statusFilter === key ? '#5865F2' : '',
                                             boxShadow: '3px 3px 0 #000',
@@ -605,31 +593,31 @@ export default function EventsIndex({ auth, events, filters }) {
                         )}
                     </div>
 
-                    <p className="text-[11px] font-black tracking-widest uppercase text-slate-400">
+                    <p className="text-[10px] sm:text-[11px] font-black tracking-widest uppercase text-slate-400 text-center sm:text-left">
                         Menampilkan <span className="text-slate-900">{filteredEvents.length}</span> event
                     </p>
 
                     {filteredEvents.length > 0
-                        ? <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
+                        ? <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 sm:gap-14">
                               {filteredEvents.map((event, idx) => (
                                   <EventCard key={event.id} event={event} idx={idx} showAdminActions={isAdmin} />
                               ))}
                           </div>
-                        : <div className="bg-white b-border rounded-[2rem] py-24 text-center"
+                        : <div className="bg-white b-border rounded-[1.5rem] sm:rounded-[2rem] py-16 sm:py-24 text-center mx-2 sm:mx-0"
                                 style={{ boxShadow: '5px 5px 0 #000' }}>
-                              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 text-3xl rounded-2xl bg-slate-100 b-border"
+                              <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 text-2xl sm:w-16 sm:h-16 sm:text-3xl rounded-xl sm:rounded-2xl bg-slate-100 b-border"
                                   style={{ boxShadow: '4px 4px 0 #000' }}></div>
-                              <h3 className="mb-2 text-2xl font-bold font-fredoka text-slate-800">
+                              <h3 className="mb-1 text-xl font-bold sm:mb-2 sm:text-2xl font-fredoka text-slate-800">
                                   {search ? 'Nggak Ketemu...' : 'Belum Ada Event'}
                               </h3>
-                              <p className="mb-6 text-sm font-bold text-slate-400">
+                              <p className="mb-5 text-xs font-bold sm:mb-6 sm:text-sm text-slate-400">
                                   {search ? 'Coba kata kunci lain' : 'Mulai buat event pertama!'}
                               </p>
                               {isAdmin && !search && (
                                   <Link href="/events/create"
-                                      className="inline-flex items-center gap-2 px-6 py-3 text-sm font-black tracking-widest text-white uppercase b-btn b-border rounded-2xl"
+                                      className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-black tracking-widest text-white uppercase b-btn b-border rounded-xl sm:rounded-2xl"
                                       style={{ background: '#5865F2', boxShadow: '4px 4px 0 #000' }}>
-                                      <PlusIcon className="w-4 h-4" strokeWidth={3} /> Buat Event Pertama
+                                      <PlusIcon className="w-4 h-4" strokeWidth={3} /> Buat Event
                                   </Link>
                               )}
                           </div>}
